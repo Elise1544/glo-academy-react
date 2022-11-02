@@ -39,7 +39,6 @@ const SignIn = styled.button`
 	background-color: transparent;
 	border: none;
 	color: white;
-	font-family: inherit;
 `;
 
 const SignInImage = styled.img`
