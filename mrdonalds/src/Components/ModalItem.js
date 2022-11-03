@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button} from './Button';
+import {ButtonStyled} from './Button';
 
 const Overlay = styled.div`
 	position: fixed;
@@ -31,7 +31,7 @@ const Banner = styled.div`
 	margin-bottom: 20px;
 `;
 
-const Order = styled.div`
+const Context = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -58,13 +58,13 @@ export const ModalItem = ({openItem, setOpenItem}) => {
 		<Overlay id="overlay" onClick={closeModal}>
 			<Modal>
 				<Banner img={openItem.img}></Banner>
-				<Order>
+				<Context>
 					<Description>
 						<p>{openItem.name}</p>
 						<p>{openItem.price.toLocaleString('ru-RU', {style: 'currency', currency: 'RUB'})}</p>
 					</Description>
-					<Button />
-				</Order>
+					<ButtonStyled>Добавить</ButtonStyled>
+				</Context>
 			</Modal>
 		</Overlay>
 	);
