@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const ButtonStyled = styled.button`
+export const ButtonStyled = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -22,5 +21,3 @@ const ButtonStyled = styled.button`
 		background-color: #35741e;
 	}
 `;
-
-export const Button = () => <ButtonStyled>Добавить</ButtonStyled>;
