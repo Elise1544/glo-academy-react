@@ -51,17 +51,15 @@ const EmptyList = styled.p`
 	text-align: center;
 `;
 
-export const Order = ({orders, setOrders}) => {
+export const Order = ({orders, setOrders, setOpenItem}) => {
 	const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0);
 
 	const totalCounter = orders.reduce((result, order) => +order.count + +result, 0);
 
-	const deleteItem = () => {
-		console.log(orders);
-		// setOrders(orders.splice());
-		// setOrders();
-
-		// orders.slice(index);
+	const deleteItem = (index) => {
+		const newOrders = [...orders];
+		newOrders.splice(index, 1);
+		setOrders(newOrders);
 	};
 
 	return (
@@ -70,8 +68,13 @@ export const Order = ({orders, setOrders}) => {
 			<OrderContent>
 				{orders.length ? (
 					<OrderList>
-						{orders.map((order, i) => (
-							<OrderListItem key={i} order={order} deleteItem={deleteItem}></OrderListItem>
+						{orders.map((order, index) => (
+							<OrderListItem
+								key={index}
+								order={order}
+								deleteItem={deleteItem}
+								index={index}
+								setOpenItem={setOpenItem}></OrderListItem>
 						))}
 					</OrderList>
 				) : (

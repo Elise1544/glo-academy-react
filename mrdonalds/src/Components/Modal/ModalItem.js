@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {ButtonStyled} from '../Style/Button';
-import {CountItem} from './countItem';
+import {CountItem} from './CountItem';
 import {useCount} from '../Hooks/useCount';
 import {totalPriceItems} from '../functions/secondaryFunction';
 import {formatCurrency} from '../functions/secondaryFunction';
@@ -62,9 +62,10 @@ const TotalPriceItem = styled.div`
 `;
 
 export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
-	const counter = useCount();
+	const counter = useCount(openItem.count);
 	const toppings = useToppings(openItem);
 	const choices = useChoices(openItem);
+	const isEdit = openItem.index > -1;
 
 	const closeModal = (e) => {
 		if (e.target.id === 'overlay') setOpenItem(null);
@@ -79,6 +80,13 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
 
 	const addToOrder = () => {
 		setOrders([...orders, order]);
+		setOpenItem(null);
+	};
+
+	const editOrder = () => {
+		const newOrders = [...orders];
+		newOrders[openItem.index] = order;
+		setOrders(newOrders);
 		setOpenItem(null);
 	};
 
@@ -98,8 +106,8 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
 						<span>Цена:</span>
 						<span>{formatCurrency(totalPriceItems(order))}</span>
 					</TotalPriceItem>
-					<ButtonStyled disabled={order.choices && !order.choice} onClick={addToOrder}>
-						Добавить
+					<ButtonStyled disabled={order.choices && !order.choice} onClick={isEdit ? editOrder : addToOrder}>
+						{isEdit ? 'Редактировать' : 'Добавить'}
 					</ButtonStyled>
 				</Context>
 			</Modal>
