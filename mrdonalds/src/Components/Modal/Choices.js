@@ -3,18 +3,20 @@ import {AdditionsgWrap} from './Additions';
 import {AdditionsLabel} from './Additions';
 import {AdditionsCheckbox} from './Additions';
 
-export function Toppings({toppings, checkToppings}) {
+export function Choices({changeChoices, choice, openItem}) {
 	return (
 		<>
-			<h3>Добавки</h3>
+			<h3>Выбирайте:</h3>
 			<AdditionsgWrap>
-				{toppings.map((item, i) => (
+				{openItem.choices.map((item, i) => (
 					<AdditionsLabel key={i}>
 						<AdditionsCheckbox
-							type="checkbox"
-							checked={item.checked}
-							onChange={() => checkToppings(i)}></AdditionsCheckbox>
-						{item.name}
+							type="radio"
+							name="choices"
+							checked={choice === item}
+							value={item}
+							onChange={changeChoices}></AdditionsCheckbox>
+						{item}
 					</AdditionsLabel>
 				))}
 			</AdditionsgWrap>

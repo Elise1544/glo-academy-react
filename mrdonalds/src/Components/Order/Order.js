@@ -14,7 +14,7 @@ const OrderStyled = styled.section`
 	flex-direction: column;
 
 	background: #fff;
-	min-width: 380px;
+	width: 380px;
 	height: calc(100% - 80px);
 	box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.25);
 	padding: 20px;
@@ -51,10 +51,18 @@ const EmptyList = styled.p`
 	text-align: center;
 `;
 
-export const Order = ({orders}) => {
+export const Order = ({orders, setOrders}) => {
 	const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0);
 
 	const totalCounter = orders.reduce((result, order) => +order.count + +result, 0);
+
+	const deleteItem = () => {
+		console.log(orders);
+		// setOrders(orders.splice());
+		// setOrders();
+
+		// orders.slice(index);
+	};
 
 	return (
 		<OrderStyled>
@@ -62,8 +70,8 @@ export const Order = ({orders}) => {
 			<OrderContent>
 				{orders.length ? (
 					<OrderList>
-						{orders.map((order) => (
-							<OrderListItem order={order}></OrderListItem>
+						{orders.map((order, i) => (
+							<OrderListItem key={i} order={order} deleteItem={deleteItem}></OrderListItem>
 						))}
 					</OrderList>
 				) : (
