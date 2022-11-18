@@ -51,7 +51,7 @@ const EmptyList = styled.p`
 	text-align: center;
 `;
 
-export const Order = ({orders, setOrders, setOpenItem}) => {
+export const Order = ({orders, setOrders, setOpenItem, authentication, logIn}) => {
 	const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0);
 
 	const totalCounter = orders.reduce((result, order) => +order.count + +result, 0);
@@ -86,7 +86,17 @@ export const Order = ({orders, setOrders, setOpenItem}) => {
 				<span>{totalCounter}</span>
 				<TotalPrice>{formatCurrency(total)}</TotalPrice>
 			</Total>
-			<ButtonStyled>Оформить</ButtonStyled>
+
+			<ButtonStyled
+				onClick={
+					!authentication
+						? logIn
+						: () => {
+								console.log(orders);
+						  }
+				}>
+				Оформить
+			</ButtonStyled>
 		</OrderStyled>
 	);
 };
